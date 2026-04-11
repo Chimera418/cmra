@@ -20,7 +20,7 @@ blog at [tush.ar](https://tush.ar).
 
 This is a tiny side project made for fun and learning. If you build something cool or want
 to improve the interpreter, feel free to reach out on
-[GitHub (@TeapotChimera418)](https://github.com/TeapotChimera418) or Discord `gamingchimera`.
+[GitHub (@TeapotChimera418)](https://github.com/TeapotChimera418) or Discord [`gamingchimera`](https://discord.com/users/736465046317563915).
 
 ## ✨ Try it Online!
 
