@@ -4,7 +4,7 @@
 
 **CMRA** (Chimera) is an esoteric programming language that explores reversible execution and direction control through an expressive, dragon-inspired syntax. Like a chimera commanding the elements, CMRA lets you control program flow with fiery commands that can soar upwards or dive downwards through your code.
 
-🔥 **GitHub Repository:** [https://github.com/Aneesh241/cmra](https://github.com/Aneesh241/cmra)  
+🔥 **GitHub Repository:** [https://github.com/TeapotChimera418/cmra](https://github.com/TeapotChimera418/cmra)  
 🌐 **Live Playground:** [https://cmra-esolang.vercel.app/playground.html](https://cmra-esolang.vercel.app/playground.html)  
 📚 **Documentation:** [https://cmra-esolang.vercel.app/index.html](https://cmra-esolang.vercel.app/index.html)
 
@@ -20,7 +20,7 @@ blog at [tush.ar](https://tush.ar).
 
 This is a tiny side project made for fun and learning. If you build something cool or want
 to improve the interpreter, feel free to reach out on
-[GitHub (@Aneesh241)](https://github.com/Aneesh241) or Discord `gamingchimera`.
+[GitHub (@TeapotChimera418)](https://github.com/TeapotChimera418) or Discord `gamingchimera`.
 
 ## ✨ Try it Online!
 
