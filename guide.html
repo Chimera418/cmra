@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CMRA User Guide — Dragon's Manual</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='10' y='80' font-size='80'%3E🐉%3C/text%3E%3C/svg%3E" />
+  <meta name="description" content="Complete CMRA user guide — installation, syntax, expressions, loops, common pitfalls, and extending the language." />
+  <style>
+    /* guide-specific tweaks */
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 0;
+    }
+    .toc-grid li { margin: 0; }
+    .toc-grid a {
+      display: block;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .toc-grid a:hover { border-color: var(--accent); color: var(--accent-2); }
+    .toc-grid a::before { content: "§ "; color: var(--muted); }
+
+    .pitfall { border-left: 3px solid #8b2c10; }
+    .tip     { border-left: 3px solid #2c7a3a; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🐉 CMRA User Guide</h1>
+    <p class="tagline">"Where code breathes fire and flows like flame…"</p>
+    <div class="header-actions">
+      <p class="github-link">
+        <a href="index.html">← Back to Docs</a>
+        <a href="playground.html">🔥 Try it Live</a>
+        <a href="https://github.com/TeapotChimera418/cmra" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+    <nav>
+      <a href="#install">Installation</a>
+      <a href="#running">Running Programs</a>
+      <a href="#fire">Fire Dragon</a>
+      <a href="#shadow">Shadow Dragon</a>
+      <a href="#expressions">Expressions</a>
+      <a href="#direction">Direction</a>
+      <a href="#blocks">Block Conditionals</a>
+      <a href="#loops">Loops</a>
+      <a href="#pitfalls">Pitfalls</a>
+      <a href="#examples">Examples</a>
+      <a href="#extending">Extending</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ── Table of Contents ─────────────────────────────────────── -->
+    <section id="toc">
+      <h2>📑 Contents</h2>
+      <ul class="toc-grid">
+        <li><a href="#install">Installation</a></li>
+        <li><a href="#running">Running Programs</a></li>
+        <li><a href="#fire">Fire Dragon syntax</a></li>
+        <li><a href="#shadow">Shadow Dragon syntax</a></li>
+        <li><a href="#expressions">Expressions &amp; Types</a></li>
+        <li><a href="#direction">Direction Control</a></li>
+        <li><a href="#blocks">Block Conditionals</a></li>
+        <li><a href="#loops">Writing Loops</a></li>
+        <li><a href="#pitfalls">Common Pitfalls</a></li>
+        <li><a href="#examples">Example Programs</a></li>
+        <li><a href="#extending">Extending the Language</a></li>
+      </ul>
+    </section>
+
+    <!-- ── Installation ──────────────────────────────────────────── -->
+    <section id="install">
+      <h2>⚡ Installation</h2>
+
+      <article class="dragon-card">
+        <h3>Option A — pip install <em>(recommended)</em></h3>
+        <p>Gives you the <code>cmra</code> command everywhere inside your virtual environment:</p>
+        <pre><code># From the project root, with your venv activated:
+pip install -e .
+
+# Then run any .cmra or .cmrasim file:
+cmra myprogram.cmra</code></pre>
+      </article>
+
+      <article class="dragon-card">
+        <h3>Option B — PowerShell wrapper <em>(no install needed)</em></h3>
+        <pre><code>.\cmra.ps1 "test cases\test.cmra"
+
+# Add to PATH for this session so `cmra` works anywhere:
+$env:PATH = "C:\path\to\CMRA;$env:PATH"
+cmra test.cmra</code></pre>
+      </article>
+
+      <article class="dragon-card">
+        <h3>Option C — Python directly</h3>
+        <pre><code># Via the installed package:
+python -m cmra.cli myprogram.cmra
+
+# Or the legacy single-file interpreters:
+python cmra.py myprogram.cmra
+python cmra_simplified.py myprogram.cmrasim</code></pre>
+      </article>
+    </section>
+
+    <!-- ── Running Programs ──────────────────────────────────────── -->
+    <section id="running">
+      <h2>▶️ Running Programs</h2>
+      <pre><code># Basic usage
+cmra &lt;filename&gt;
+
+# Examples
+cmra "test cases\test.cmra"
+cmra projects\calculator.cmra
+cmra projects\fizzbuzz.cmra</code></pre>
+
+      <table>
+        <thead><tr><th>Extension</th><th>Dialect</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>.cmra</code></td><td>Fire Dragon</td><td>Expressive aliases (<code>bind</code>, <code>roar</code>, …)</td></tr>
+          <tr><td><code>.cmrasim</code></td><td>Shadow Dragon</td><td>Minimal commands (<code>=</code>, <code>print</code>, …)</td></tr>
+          <tr><td><code>.rev</code></td><td>Shadow Dragon</td><td>Alternate extension, same interpreter</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Extensions are only conventions — either interpreter can read any file.</p>
+    </section>
+
+    <!-- ── Fire Dragon ───────────────────────────────────────────── -->
+    <section id="fire">
+      <h2>🐲 Fire Dragon Syntax</h2>
+      <p>Entry point: <code>cmra.py</code> / <code>src/cmra/fire.py</code>. Expressive, dragon-flavored keywords.</p>
+
+      <table>
+        <thead><tr><th>Keyword</th><th>Role</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>bind</code></td><td>Assign variable</td><td><code>x bind 5</code></td></tr>
+          <tr><td><code>roar</code></td><td>Print value</td><td><code>roar "hello"</code> / <code>roar x + 1</code></td></tr>
+          <tr><td><code>sniff</code></td><td>Conditional</td><td><code>sniff x &lt; 10 : roar x</code></td></tr>
+          <tr><td><code>dive</code></td><td>Direction → forward</td><td><code>dive</code></td></tr>
+          <tr><td><code>soar</code></td><td>Direction → reverse</td><td><code>soar</code></td></tr>
+          <tr><td><code>murmur</code></td><td>Comment</td><td><code>murmur this is ignored</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Example</h3>
+      <pre><code>x bind 3
+name bind "Chimera"
+roar name          murmur prints: Chimera
+roar x * 4        murmur prints: 12.0</code></pre>
+    </section>
+
+    <!-- ── Shadow Dragon ─────────────────────────────────────────── -->
+    <section id="shadow">
+      <h2>🌑 Shadow Dragon Syntax</h2>
+      <p>Entry point: <code>cmra_simplified.py</code> / <code>src/cmra/shadow.py</code>. Minimal syntax, same execution model.</p>
+
+      <table>
+        <thead><tr><th>Keyword</th><th>Role</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>=</code></td><td>Assign variable</td><td><code>x = 5</code></td></tr>
+          <tr><td><code>print</code></td><td>Print value</td><td><code>print x + 1</code></td></tr>
+          <tr><td><code>check</code></td><td>Conditional</td><td><code>check x &lt; 10 : print x</code></td></tr>
+          <tr><td><code>reverse</code></td><td>Toggle direction</td><td><code>reverse</code></td></tr>
+          <tr><td><code>;</code></td><td>Comment</td><td><code>; this is ignored</code></td></tr>
+        </tbody>
+      </table>
+
+      <pre><code>x = 3
+name = "Chimera"
+print name         ; prints: Chimera</code></pre>
+    </section>
+
+    <!-- ── Expressions ───────────────────────────────────────────── -->
+    <section id="expressions">
+      <h2>🔢 Expressions &amp; Types</h2>
+
+      <ul>
+        <li><strong>Numbers</strong> are always floats: <code>2</code> → <code>2.0</code></li>
+        <li><strong>Strings</strong> use single or double quotes: <code>"hello"</code> <code>'world'</code></li>
+        <li><strong>Operators:</strong> <code>+</code> <code>-</code> <code>*</code> <code>/</code> and comparisons <code>&lt; &gt; &lt;= &gt;= ==</code></li>
+        <li><strong>Precedence:</strong> <code>* /</code> bind tighter than <code>+ -</code>, comparisons are lowest</li>
+        <li><strong>String + anything</strong> → string concatenation: <code>"val: " + x</code> → <code>"val: 5.0"</code></li>
+        <li><strong>Variables</strong> are global and persist throughout execution</li>
+      </ul>
+
+      <pre><code>x bind 4
+roar x * 3 + 1        murmur → 13.0
+roar "val: " + x      murmur → "val: 4.0"
+roar x == 4           murmur → 1 (true) or 0 (false)</code></pre>
+    </section>
+
+    <!-- ── Direction ─────────────────────────────────────────────── -->
+    <section id="direction">
+      <h2>🧭 Direction Control</h2>
+      <p>CMRA's defining feature: a <strong>global direction</strong> controls how the interpreter steps through lines.</p>
+
+      <table>
+        <thead><tr><th>Direction</th><th>Value</th><th>Movement</th></tr></thead>
+        <tbody>
+          <tr><td>Forward (default)</td><td><code>1</code></td><td>Line 1 → 2 → 3 …</td></tr>
+          <tr><td>Reverse</td><td><code>-1</code></td><td>Line N → N-1 → N-2 …</td></tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead><tr><th>Command</th><th>Fire Dragon</th><th>Shadow Dragon</th></tr></thead>
+        <tbody>
+          <tr><td>Set forward</td><td><code>dive</code></td><td>—</td></tr>
+          <tr><td>Set reverse</td><td><code>soar</code></td><td>—</td></tr>
+          <tr><td>Toggle</td><td>—</td><td><code>reverse</code></td></tr>
+        </tbody>
+      </table>
+
+      <p class="note">The program terminates when the instruction pointer goes past the first or last line.</p>
+
+      <p class="note tip"><strong>Tip:</strong> Prefer <code>soar</code>/<code>dive</code> over <code>reverse</code> in loops — they are idempotent (calling twice is safe). <code>reverse</code> toggles, so calling it twice cancels out.</p>
+    </section>
+
+    <!-- ── Block Conditionals ────────────────────────────────────── -->
+    <section id="blocks">
+      <h2>📦 Block Conditionals</h2>
+      <p>A block groups multiple lines under a single condition:</p>
+
+      <pre><code>sniff x &lt; 5 :
+{
+  roar "x is small"
+  roar x
+}</code></pre>
+
+      <h3>Block entry rules</h3>
+      <table>
+        <thead><tr><th>Condition</th><th>Direction</th><th>Enters at</th></tr></thead>
+        <tbody>
+          <tr><td>True</td><td>Forward</td><td><strong>First</strong> line of block</td></tr>
+          <tr><td>True</td><td>Reverse</td><td><strong>Last</strong> line of block</td></tr>
+          <tr><td>False</td><td>Either</td><td>Skip entire block</td></tr>
+        </tbody>
+      </table>
+
+      <p>This means a <code>soar</code> inside a block takes effect immediately on the reverse pass — the key to building loops.</p>
+    </section>
+
+    <!-- ── Loops ─────────────────────────────────────────────────── -->
+    <section id="loops">
+      <h2>🔁 Writing Loops</h2>
+      <p>CMRA has no native loop keyword. Use <strong>direction reversal + flag guards</strong>.</p>
+
+      <h3>Pattern 1 — Inline flagged loop</h3>
+      <pre><code>murmur ── setup ─────────────────────────────────
+i bind 0
+flag bind 1
+
+murmur ── top boundary: re-enter forward if done ─
+sniff i &lt; 10 : sniff flag == 0 : dive
+
+murmur ── flag guard (0 = forward pass) ──────────
+flag bind 0
+
+murmur ── body: only runs on forward pass ─────────
+sniff flag == 0 : roar i
+sniff flag == 0 : i bind i + 1
+
+murmur ── restore flag ───────────────────────────
+flag bind 1
+
+murmur ── bottom boundary: reverse if still looping
+sniff i &lt; 10 : sniff flag == 1 : soar</code></pre>
+
+      <h4>How it works step-by-step</h4>
+      <ol>
+        <li>Reaches bottom <code>sniff</code> → condition true → <code>soar</code> → direction = reverse</li>
+        <li>Re-traverses lines in reverse, skipping body (guarded by <code>flag == 0</code>)</li>
+        <li>Reaches top boundary → <code>dive</code> → direction = forward</li>
+        <li>Forward pass runs body, increments <code>i</code>, reaches bottom again</li>
+        <li>Repeats until <code>i &lt; 10</code> is false</li>
+      </ol>
+
+      <h3>Pattern 2 — Block loop</h3>
+      <pre><code>i bind 0
+flag bind 0
+sniff i &lt; 10 :
+{
+  sniff flag == 1 : dive
+  sniff i &lt; 10 : flag bind 1
+  sniff flag == 1 : roar i
+  sniff flag == 1 : i bind i + 1
+  sniff i &lt; 10 : flag bind 0
+  sniff flag == 0 : soar
+}</code></pre>
+
+      <p class="note"><strong>Key rule:</strong> Always guard loop body lines with a flag variable so the reverse traversal doesn't re-execute them.</p>
+    </section>
+
+    <!-- ── Pitfalls ───────────────────────────────────────────────── -->
+    <section id="pitfalls">
+      <h2>⚠️ Common Pitfalls</h2>
+
+      <article class="wisdom-card pitfall">
+        <h3>🔥 Missing flag guards — body runs twice per iteration</h3>
+        <pre><code>murmur BAD — prints twice per iteration!
+roar i
+i bind i + 1</code></pre>
+        <pre><code>murmur GOOD — only runs on forward pass
+sniff flag == 0 : roar i
+sniff flag == 0 : i bind i + 1</code></pre>
+      </article>
+
+      <article class="wisdom-card pitfall">
+        <h3>🔥 String growth in loops</h3>
+        <p>Without a flag guard, <code>s bind s + "x"</code> runs on both forward and reverse passes, doubling the string.</p>
+        <p>Always guard string-building assignments: <code>sniff flag == 0 : s bind s + "x"</code></p>
+      </article>
+
+      <article class="wisdom-card pitfall">
+        <h3>🔥 Numbers always print as floats</h3>
+        <p><code>roar 5</code> prints <code>5.0</code>, not <code>5</code>. This is by design — all numeric literals are floats.</p>
+      </article>
+
+      <article class="wisdom-card pitfall">
+        <h3>🔥 <code>soar</code> vs <code>reverse</code></h3>
+        <ul>
+          <li><code>soar</code> <strong>sets</strong> direction to reverse (idempotent)</li>
+          <li><code>reverse</code> <strong>toggles</strong> — calling it twice cancels out!</li>
+          <li>Use <code>soar</code>/<code>dive</code> in loops for safety</li>
+        </ul>
+      </article>
+
+      <article class="wisdom-card pitfall">
+        <h3>🔥 Nested loops need nested flags</h3>
+        <p>Use separate flag variables for each loop level: <code>flag_outer</code>, <code>flag_inner</code>. Every inner body line must be guarded by <code>flag_inner == 0</code>.</p>
+      </article>
+    </section>
+
+    <!-- ── Examples ──────────────────────────────────────────────── -->
+    <section id="examples">
+      <h2>🎮 Example Programs</h2>
+
+      <article class="dragon-card">
+        <h3>Hello World</h3>
+        <pre><code>roar "Hello, Chimera!"</code></pre>
+      </article>
+
+      <article class="dragon-card">
+        <h3>Count 0 to 5</h3>
+        <pre><code>i bind 0
+flag bind 1
+sniff i &lt;= 5 : sniff flag == 0 : dive
+flag bind 0
+sniff flag == 0 : roar i
+sniff flag == 0 : i bind i + 1
+flag bind 1
+sniff i &lt;= 5 : sniff flag == 1 : soar</code></pre>
+      </article>
+
+      <article class="dragon-card">
+        <h3>Run the bundled projects</h3>
+        <pre><code>cmra projects\calculator.cmra       # factorial, series, power
+cmra projects\countdown.cmra        # reversible countdown
+cmra projects\fizzbuzz.cmra         # fizzbuzz 1–15
+cmra projects\story_adventure.cmra  # interactive text adventure</code></pre>
+        <p>Test cases live in <code>test cases\</code> (Fire Dragon) and <code>test cases cmra_simplified\</code> (Shadow Dragon).</p>
+      </article>
+    </section>
+
+    <!-- ── Extending ─────────────────────────────────────────────── -->
+    <section id="extending">
+      <h2>🛠️ Extending the Language</h2>
+      <p>To add a new command to the Fire Dragon interpreter (<code>src/cmra/fire.py</code>):</p>
+      <ol>
+        <li><strong>Top-level dispatch</strong> — add a branch in <code>execute_line()</code> alongside <code>roar</code>, <code>bind</code>, <code>sniff</code></li>
+        <li><strong>Inline action support</strong> — add it to <code>execute_inline_action()</code> so it can appear after <code>:</code> in <code>sniff</code> chains</li>
+        <li><strong>Test it</strong> — add a <code>.cmra</code> file to <code>test cases\</code></li>
+      </ol>
+      <p>Look at how <code>roar</code>, <code>bind</code>, <code>dive</code>, and <code>soar</code> are implemented — they follow the same two-step pattern.</p>
+
+      <p class="note">📖 The full keyword mapping is in <a href="https://github.com/TeapotChimera418/cmra/blob/main/keybind.txt" target="_blank" rel="noopener">keybind.txt</a> — Fire ↔ Shadow cheatsheet.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>🐉 CMRA (Chimera) — made with fire and curiosity &nbsp;·&nbsp;
+      <a href="index.html">Docs</a> &nbsp;·&nbsp;
+      <a href="playground.html">Playground</a> &nbsp;·&nbsp;
+      <a href="https://github.com/TeapotChimera418/cmra" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <p>May your code burn bright and your loops reverse true! 🔥</p>
+  </footer>
+
+</body>
+</html>

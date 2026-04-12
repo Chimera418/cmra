@@ -19,6 +19,7 @@
       <a href="playground.html" class="try-live-btn-header">🔥 Try it Live</a>
     </div>
     <nav>
+      <a href="guide.html" style="color:var(--accent-2);border-color:var(--border);">📖 User Guide</a>
       <a href="#intro">Intro</a>
       <a href="#esolang">Why an esolang?</a>
       <a href="#quickstart">Quick start</a>
@@ -70,16 +71,31 @@
 
     <section id="quickstart">
       <h2>⚡ Quick start</h2>
-      <p>Windows PowerShell examples:</p>
-      <pre><code># CMRA (alias) programs
-python .\cmra.py ".\test cases\test.cmra"
 
-# Simplified (check/print/reverse) program
+      <h3>Option 1 — pip install (recommended)</h3>
+      <p>Gives you the <code>cmra</code> command everywhere inside your virtual environment:</p>
+      <pre><code># From the project root, with your venv activated:
+pip install -e .
+
+# Then run any .cmra or .cmrasim file:
+cmra "test cases\test.cmra"
+cmra projects\fizzbuzz.cmra</code></pre>
+
+      <h3>Option 2 — PowerShell wrapper (no install needed)</h3>
+      <pre><code>.\cmra.ps1 "test cases\test.cmra"</code></pre>
+
+      <h3>Option 3 — Python directly</h3>
+      <pre><code># Fire Dragon
+python -m cmra.cli "test cases\test.cmra"
+python .\cmra.py "test cases\test.cmra"
+
+# Shadow Dragon
 python .\cmra_simplified.py .\test.rev
 
-# You can also use `py` instead of `python`
-py cmra.py "test cases\test_strings.cmra"
-py cmra_simplified.py test.rev</code></pre>
+# Also works with `py` instead of `python`
+py cmra.py "test cases\test_strings.cmra"</code></pre>
+
+      <p class="note">📖 See <a href="https://github.com/TeapotChimera418/cmra/blob/main/GUIDE.md" target="_blank" rel="noopener">GUIDE.md</a> for the full user guide including loop patterns and tips.</p>
     </section>
 
     <section id="languages">

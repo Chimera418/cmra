@@ -1,0 +1,15 @@
+[project]
+name = "cmra"
+version = "0.1.0"
+description = "CMRA — Creative Minimal Recursive Automaton language runtime"
+requires-python = ">=3.8"
+
+[project.scripts]
+cmra = "cmra.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
