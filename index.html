@@ -40,7 +40,7 @@
     <section id="intro" class="hero">
       <h2>🔥 Welcome to the Dragon's Lair</h2>
       <p><strong>CMRA</strong> is a tiny <em>esoteric programming language (esolang)</em> that explores <strong>reversible execution</strong> through a dragon-themed syntax. Programs can change their traversal direction at runtime: ascend with <code>soar</code> or descend with <code>dive</code>.</p>
-      <p>Two interpreters stand guard: the <strong>Fire Dragon</strong> (<code>cmra.py</code>) with expressive aliases, and the <strong>Shadow Dragon</strong> (<code>cmra_simplified.py</code>) with minimal commands.</p>
+      <p>Two interpreters stand guard: the <strong>Fire Dragon</strong> (<code>cmra.py</code>) with expressive aliases, and the <strong>Shadow Dragon</strong> (<code>cmrash.py</code>) with minimal commands.</p>
       <h3>Origin</h3>
       <p>
         CMRA began as a workshop project I attended by
@@ -73,13 +73,17 @@
       <h2>⚡ Quick start</h2>
 
       <h3>Option 1 — pip install (recommended)</h3>
-      <p>Gives you the <code>cmra</code> command everywhere inside your virtual environment:</p>
+      <p>Install from PyPI to get the <code>cmra</code> command inside your virtual environment:</p>
       <pre><code># From the project root, with your venv activated:
-pip install -e .
+    pip install cmra
 
-# Then run any .cmra or .cmrasim file:
+    # Development install from source (optional):
+    pip install -e .
+
+# Then run any .cmra or .cmrash file:
 cmra "test cases\test.cmra"
-cmra projects\fizzbuzz.cmra</code></pre>
+cmra projects\fizzbuzz.cmra
+cmrash "test cases cmrash\test.cmrash"</code></pre>
 
       <h3>Option 2 — PowerShell wrapper (no install needed)</h3>
       <pre><code>.\cmra.ps1 "test cases\test.cmra"</code></pre>
@@ -90,7 +94,7 @@ python -m cmra.cli "test cases\test.cmra"
 python .\cmra.py "test cases\test.cmra"
 
 # Shadow Dragon
-python .\cmra_simplified.py .\test.rev
+python .\cmrash.py "test cases cmrash\test.cmrash"
 
 # Also works with `py` instead of `python`
 py cmra.py "test cases\test_strings.cmra"</code></pre>
@@ -102,7 +106,7 @@ py cmra.py "test cases\test_strings.cmra"</code></pre>
       <h2>🐲 Languages</h2>
 
       <article class="dragon-card">
-        <h3>Shadow Dragon (<code>cmra_simplified.py</code>)</h3>
+        <h3>Shadow Dragon (<code>cmrash.py</code>)</h3>
         <p>The minimalist path — direct and powerful:</p>
         <ul>
           <li><strong>Variables:</strong> <code>x = 3</code></li>
@@ -234,17 +238,17 @@ sniff cond :
 
       <h3>Run them</h3>
       <pre><code># Test cases
-python .\cmra.py ".\test cases\test_block.cmra"
-python .\cmra.py ".\test cases\test_strings.cmra"
+    cmra "test cases\test_block.cmra"
+    cmra "test cases\test_strings.cmra"
 
-# Projects
-python .\cmra.py .\projects\calculator.cmra
-python .\cmra.py .\projects\countdown.cmra
-python .\cmra.py .\projects\fizzbuzz.cmra
-python .\cmra.py .\projects\story_adventure.cmra
+    # Projects
+    cmra projects\calculator.cmra
+    cmra projects\countdown.cmra
+    cmra projects\fizzbuzz.cmra
+    cmra projects\story_adventure.cmra
 
-# Simplified sample program
-python .\cmra_simplified.py .\test.rev</code></pre>
+    # Legacy single-file interpreter (optional)
+    python .\cmra.py "test cases\test_block.cmra"</code></pre>
     </section>
 
     <section id="tips">
@@ -280,7 +284,7 @@ python .\cmra_simplified.py .\test.rev</code></pre>
       <h2>📦 File inventory</h2>
       <ul>
         <li><code>cmra.py</code> — Fire Dragon interpreter (alias keywords, inline + block <code>sniff</code>)</li>
-        <li><code>cmra_simplified.py</code> — Shadow Dragon interpreter (<code>check</code>, <code>print</code>, <code>reverse</code>, braces)</li>
+        <li><code>cmrash.py</code> — Shadow Dragon interpreter (<code>check</code>, <code>print</code>, <code>reverse</code>, braces)</li>
         <li><code>prototype.py</code> — Compact baseline with inline <code>sniff</code></li>
         <li><code>keybind.txt</code> — Keyword mapping cheatsheet</li>
         <li><code>index.html</code> + <code>styles.css</code> — This site</li>

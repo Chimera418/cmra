@@ -36,11 +36,15 @@ Write and run CMRA code directly in your browser — no installation needed. Pow
 ### pip install (recommended)
 
 ```powershell
-# From the project root with your venv active:
+# Install from PyPI:
+pip install cmra
+
+# Or install from source (development):
 pip install -e .
 
-# Now use `cmra` from anywhere inside the venv:
+# Now use `cmra` and `cmrash` from anywhere inside the venv:
 cmra "test cases\test.cmra"
+cmrash "test cases\test.cmrash"
 ```
 
 ### No-install PowerShell wrapper
@@ -54,7 +58,7 @@ cmra "test cases\test.cmra"
 ```powershell
 python -m cmra.cli "test cases\test.cmra"
 python cmra.py "test cases cmra\test.cmra"          # legacy single-file
-python cmra_simplified.py "test cases cmra_simplified\test.cmrasim"
+python cmrash.py "test cases cmrash\test.cmrash"
 ```
 
 ---
@@ -64,7 +68,7 @@ python cmra_simplified.py "test cases cmra_simplified\test.cmrasim"
 | Dragon | Entry point | Keywords |
 |--------|-------------|----------|
 | 🐲 **Fire Dragon** | `cmra.py` / `src/cmra/fire.py` | `bind` `roar` `sniff` `dive` `soar` `murmur` |
-| 🌑 **Shadow Dragon** | `cmra_simplified.py` / `src/cmra/shadow.py` | `=` `print` `check` `reverse` `;` |
+| 🌑 **Shadow Dragon** | `cmrash.py` / `src/cmra/shadow.py` | `=` `print` `check` `reverse` `;` |
 | 🐉 **Ancient Wyrm** | `prototype.py` | Compact baseline, inline `sniff` only |
 
 ---
@@ -114,7 +118,7 @@ cmra projects\fizzbuzz.cmra
 cmra projects\story_adventure.cmra
 ```
 
-**Test cases** live in `test cases/` (`.cmra`) and `test cases cmra_simplified/` (`.cmrasim`).  
+**Test cases** live in `test cases/` (`.cmra`) and `test cases cmrash/` (`.cmrash`).  
 **Projects** live in `projects/`: calculator, countdown, fizzbuzz, story_adventure.
 
 ---
@@ -129,7 +133,7 @@ cmra projects\story_adventure.cmra
 | `src/cmra/shadow.py` | Shadow Dragon interpreter |
 | `src/cmra/runner.py` | Shared dispatch logic |
 | `cmra.py` | Legacy Fire Dragon single-file |
-| `cmra_simplified.py` | Legacy Shadow Dragon single-file |
+| `cmrash.py` | Legacy Shadow Dragon single-file |
 | `prototype.py` | Original workshop prototype |
 | `cmra.ps1` / `cmra.bat` | No-install launchers |
 | `pyproject.toml` | Package metadata (pip install) |
@@ -139,7 +143,7 @@ cmra projects\story_adventure.cmra
 | `keybind.txt` | Fire ↔ Shadow keyword cheatsheet |
 | `projects/` | Showcase programs |
 | `test cases/` | Regression tests (`.cmra`) |
-| `test cases cmra_simplified/` | Regression tests (`.cmrasim`) |
+| `test cases cmrash/` | Regression tests (`.cmrash`) |
 
 ---
 

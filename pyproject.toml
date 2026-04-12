@@ -2,14 +2,30 @@
 name = "cmra"
 version = "0.1.0"
 description = "CMRA — Creative Minimal Recursive Automaton language runtime"
+readme = "README.md"
 requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "TeapotChimera418" }]
+keywords = ["esolang", "esoteric", "programming", "language", "interpreter"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Interpreters",
+]
+
+[project.urls]
+Homepage   = "https://cmra-esolang.vercel.app"
+Repository = "https://github.com/TeapotChimera418/cmra"
+Changelog  = "https://github.com/TeapotChimera418/cmra/blob/main/CHANGELOG.md"
 
 [project.scripts]
-cmra = "cmra.cli:main"
+cmra   = "cmra.cli:main"
+cmrash = "cmra.shadow_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"

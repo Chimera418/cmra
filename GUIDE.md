@@ -26,7 +26,10 @@
 ### Option A — pip (recommended, gives you the `cmra` command globally in your venv)
 
 ```powershell
-# From the project root, with your venv activated:
+# Install from PyPI:
+pip install cmra
+
+# Development install from source (optional):
 pip install -e .
 
 # Then anywhere inside the venv:
@@ -50,7 +53,7 @@ cmra test.cmra
 python -m cmra.cli myprogram.cmra
 # or, if you just want the legacy single-file interpreters:
 python cmra.py myprogram.cmra
-python cmra_simplified.py myprogram.cmrasim
+python cmrash.py myprogram.cmrash
 ```
 
 ---
@@ -60,16 +63,18 @@ python cmra_simplified.py myprogram.cmrasim
 ```powershell
 # Basic usage
 cmra <filename>
+cmrash <filename>
 
 # Examples
 cmra "test cases\test.cmra"
 cmra projects\calculator.cmra
 cmra projects\fizzbuzz.cmra
+cmrash "test cases cmrash\test.cmrash"
 ```
 
 > **File extensions**  
 > `.cmra` → Fire Dragon (expressive aliases)  
-> `.cmrasim` / `.rev` → Shadow Dragon (minimal syntax)  
+> `.cmrash` → Shadow Dragon (minimal syntax)  
 > Both extensions work with all interpreters; the extension is just a convention.
 
 ---

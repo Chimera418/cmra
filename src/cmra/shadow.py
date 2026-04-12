@@ -1,6 +1,6 @@
 """
 shadow.py — Shadow Dragon Interpreter (minimal syntax)
-Original: cmra_simplified.py
+Original standalone script: cmrash.py
 
 Exposed API:
     ShadowInterpreter().run(file_path)

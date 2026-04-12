@@ -88,11 +88,14 @@
 
       <article class="dragon-card">
         <h3>Option A — pip install <em>(recommended)</em></h3>
-        <p>Gives you the <code>cmra</code> command everywhere inside your virtual environment:</p>
+        <p>Install from PyPI to get the <code>cmra</code> command everywhere inside your virtual environment:</p>
         <pre><code># From the project root, with your venv activated:
-pip install -e .
+      pip install cmra
 
-# Then run any .cmra or .cmrasim file:
+      # Development install from source (optional):
+      pip install -e .
+
+      # Then run any .cmra or .cmrash file:
 cmra myprogram.cmra</code></pre>
       </article>
 
@@ -112,7 +115,7 @@ python -m cmra.cli myprogram.cmra
 
 # Or the legacy single-file interpreters:
 python cmra.py myprogram.cmra
-python cmra_simplified.py myprogram.cmrasim</code></pre>
+python cmrash.py myprogram.cmrash</code></pre>
       </article>
     </section>
 
@@ -121,18 +124,19 @@ python cmra_simplified.py myprogram.cmrasim</code></pre>
       <h2>▶️ Running Programs</h2>
       <pre><code># Basic usage
 cmra &lt;filename&gt;
+    cmrash &lt;filename&gt;
 
 # Examples
 cmra "test cases\test.cmra"
 cmra projects\calculator.cmra
-cmra projects\fizzbuzz.cmra</code></pre>
+    cmra projects\fizzbuzz.cmra
+    cmrash "test cases cmrash\test.cmrash"</code></pre>
 
       <table>
         <thead><tr><th>Extension</th><th>Dialect</th><th>Notes</th></tr></thead>
         <tbody>
           <tr><td><code>.cmra</code></td><td>Fire Dragon</td><td>Expressive aliases (<code>bind</code>, <code>roar</code>, …)</td></tr>
-          <tr><td><code>.cmrasim</code></td><td>Shadow Dragon</td><td>Minimal commands (<code>=</code>, <code>print</code>, …)</td></tr>
-          <tr><td><code>.rev</code></td><td>Shadow Dragon</td><td>Alternate extension, same interpreter</td></tr>
+          <tr><td><code>.cmrash</code></td><td>Shadow Dragon</td><td>Minimal commands (<code>=</code>, <code>print</code>, …)</td></tr>
         </tbody>
       </table>
       <p class="note">Extensions are only conventions — either interpreter can read any file.</p>
@@ -165,7 +169,7 @@ roar x * 4        murmur prints: 12.0</code></pre>
     <!-- ── Shadow Dragon ─────────────────────────────────────────── -->
     <section id="shadow">
       <h2>🌑 Shadow Dragon Syntax</h2>
-      <p>Entry point: <code>cmra_simplified.py</code> / <code>src/cmra/shadow.py</code>. Minimal syntax, same execution model.</p>
+      <p>Entry point: <code>cmrash.py</code> / <code>src/cmra/shadow.py</code>. Minimal syntax, same execution model.</p>
 
       <table>
         <thead><tr><th>Keyword</th><th>Role</th><th>Example</th></tr></thead>
@@ -371,7 +375,7 @@ sniff i &lt;= 5 : sniff flag == 1 : soar</code></pre>
 cmra projects\countdown.cmra        # reversible countdown
 cmra projects\fizzbuzz.cmra         # fizzbuzz 1–15
 cmra projects\story_adventure.cmra  # interactive text adventure</code></pre>
-        <p>Test cases live in <code>test cases\</code> (Fire Dragon) and <code>test cases cmra_simplified\</code> (Shadow Dragon).</p>
+        <p>Test cases live in <code>test cases\</code> (Fire Dragon) and <code>test cases cmrash\</code> (Shadow Dragon).</p>
       </article>
     </section>
 

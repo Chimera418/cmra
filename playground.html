@@ -16,7 +16,7 @@
       <a href="index.html">← Back to Docs</a>
       <a href="https://github.com/TeapotChimera418/cmra" target="_blank" rel="noopener">View on GitHub</a>
     </p>
-    <p class="note">💻 Want to run programs locally? <code>pip install -e .</code> → <code>cmra yourfile.cmra</code>
+    <p class="note">💻 Want to run programs locally? <code>pip install cmra</code> → <code>cmra yourfile.cmra</code>
       — see the <a href="index.html#quickstart">Quick&nbsp;start</a> or <a href="https://github.com/TeapotChimera418/cmra/blob/main/GUIDE.md" target="_blank" rel="noopener">GUIDE.md</a>.</p>
   </header>
 
@@ -30,7 +30,7 @@
           <label for="interpreter-toggle">Interpreter:</label>
           <select id="interpreter-toggle">
             <option value="fire">🐲 Fire Dragon (cmra.py)</option>
-            <option value="shadow">🌑 Shadow Dragon (cmra_simplified.py)</option>
+            <option value="shadow">🌑 Shadow Dragon (cmrash.py)</option>
           </select>
           
           <label for="file-dropdown">Load Example:</label>
@@ -52,7 +52,7 @@
           </select>
           
           <label for="file-upload" class="file-upload-label">📁 Upload File</label>
-          <input type="file" id="file-upload" accept=".cmra,.cmrasim,.rev" style="display: none;" />
+          <input type="file" id="file-upload" accept=".cmra,.cmrash" style="display: none;" />
         </div>
         
         <div class="control-row">
@@ -133,11 +133,11 @@
       } else {
         // Shadow Dragon - show simplified test cases only, hide projects
         testCasesGroup.innerHTML = `
-          <option value="test cases cmra_simplified/test.cmrasim">test.cmrasim</option>
-          <option value="test cases cmra_simplified/test_strings.cmrasim">test_strings.cmrasim</option>
-          <option value="test cases cmra_simplified/test_arith.cmrasim">test_arith.cmrasim</option>
-          <option value="test cases cmra_simplified/test_cond.cmrasim">test_cond.cmrasim</option>
-          <option value="test cases cmra_simplified/test_block.cmrasim">test_block.cmrasim</option>
+          <option value="test cases cmrash/test.cmrash">test.cmrash</option>
+          <option value="test cases cmrash/test_strings.cmrash">test_strings.cmrash</option>
+          <option value="test cases cmrash/test_arith.cmrash">test_arith.cmrash</option>
+          <option value="test cases cmrash/test_cond.cmrash">test_cond.cmrash</option>
+          <option value="test cases cmrash/test_block.cmrash">test_block.cmrash</option>
         `;
         projectsGroup.style.display = 'none';
         
@@ -162,12 +162,12 @@
         const cmraResponse = await fetch('cmra.py');
         const cmraCode = await cmraResponse.text();
         
-        const simplifiedResponse = await fetch('cmra_simplified.py');
+        const simplifiedResponse = await fetch('cmrash.py');
         const simplifiedCode = await simplifiedResponse.text();
         
         // Write to Pyodide filesystem
         pyodide.FS.writeFile('cmra.py', cmraCode);
-        pyodide.FS.writeFile('cmra_simplified.py', simplifiedCode);
+        pyodide.FS.writeFile('cmrash.py', simplifiedCode);
         
         interpretersLoaded = true;
         statusDiv.textContent = 'Ready! 🐉';
@@ -196,7 +196,7 @@
         pyodide.FS.writeFile('user_code.cmra', code);
         
         // Capture stdout and run the interpreter
-        const scriptFile = interpreter === 'fire' ? 'cmra' : 'cmra_simplified';
+        const scriptFile = interpreter === 'fire' ? 'cmra' : 'cmrash';
         
         const runScript = `
 import sys
@@ -218,9 +218,9 @@ try:
         import cmra
     else:
         # Reset module if already imported
-        if 'cmra_simplified' in sys.modules:
-            del sys.modules['cmra_simplified']
-        import cmra_simplified
+        if 'cmrash' in sys.modules:
+          del sys.modules['cmrash']
+        import cmrash
     
     output = sys.stdout.getvalue()
 except Exception as e:

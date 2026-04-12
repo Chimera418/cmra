@@ -135,8 +135,8 @@ def run(line,lines,line_index):
         # Execute the block if condition is true
         if evaluate(condition):
             # Instead of iterating the block here, return the index of the
-            # first executable line inside the block (respecting current
-            # DIRECTION). The main loop will then continue stepping with
+            # first executable line inside the block (respecting current DIRECTION).
+            # The main loop will then continue stepping with
             # DIRECTION, so a `reverse` encountered while inside the block
             # immediately affects traversal direction.
             first = block_start + 1

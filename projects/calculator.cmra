@@ -1,7 +1,7 @@
 murmur === Interactive Calculator in CMRA ===
 murmur Demonstrates CMRA's ability to perform various calculations
 
-roar "=== CMRA Calculator ==="
+roar "================= CMRA Calculator ================="
 roar ""
 
 murmur Addition Demo
@@ -87,7 +87,7 @@ sniff counter < exponent : sniff flag == 1 : soar
 roar base + "^" + exponent + " = " + result
 
 roar ""
-roar "=== Calculator Complete! ==="
+roar "================= Calculator Complete! ================="
 
 roar ""
 roar "=== Factorial (Block Loop) ==="

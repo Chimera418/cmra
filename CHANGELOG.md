@@ -12,10 +12,14 @@ The project grew beyond two standalone scripts. You can now run CMRA in four dif
 
 #### 1. `pip install` + `cmra` CLI *(recommended)*
 ```powershell
+pip install cmra          # from PyPI
+
+# development install (optional)
 pip install -e .          # inside your venv
 cmra myprogram.cmra
 cmra run script.cmra --debug
 cmra repl --mode shadow
+cmrash myprogram.cmrash
 ```
 The `cmra` command is registered via `pyproject.toml → [project.scripts]`.
 
@@ -61,7 +65,7 @@ dist\cmra.exe myprogram.cmra
 | `setup.py` | pip 21.x compatibility shim |
 | `build.bat` | PyInstaller build helper → `dist\cmra.exe` |
 
-> **Original `cmra.py` and `cmra_simplified.py` are untouched** — they still work as before.
+> **Standalone scripts remain available:** `cmra.py` (Fire) and `cmrash.py` (Shadow).
 
 ---
 
@@ -81,6 +85,6 @@ dist\cmra.exe myprogram.cmra
 ### Key Design Decisions
 
 - **Class-based interpreters** — each interpreter run is isolated (no global state leakage between files)
-- **`.cmrash` extension** — new canonical extension for Shadow Dragon (`.cmrasim` still works)
+- **`.cmrash` extension** — canonical extension for Shadow Dragon
 - **Wrappers auto-detect venv** — `cmra.ps1` and `cmra.bat` check for `venv\Scripts\python.exe` first, so they work with or without activation
-- **Original scripts untouched** — `cmra.py` and `cmra_simplified.py` remain for backwards compatibility
+- **Standalone scripts available** — `cmra.py` and `cmrash.py` remain for direct execution workflows
