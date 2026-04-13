@@ -59,7 +59,7 @@ python cmrash.py myprogram.cmrash
 ### Option D — CMRA Esoteric Language Extension
 
 For the best developer experience, install the official extension:
-- **VS Code / Cursor**: Search for **CMRA Esoteric Language** in the extension marketplace.
+- **Marketplace**: Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang).
 - **Manual Install**: Download the latest `.vsix` from the [GitHub Releases](https://github.com/Chimera418/cmra/releases).
 
 ---

@@ -13,7 +13,7 @@
 ## ⚡ Installation & Usage
 
 ### 1. The Extension
-Get the latest version straight from the VS Code Marketplace or Open VSX Registry by searching for **CMRA Esoteric Language**. 
+Get the latest version straight from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang) by clicking the links or searching for **CMRA Esoteric Language**. 
 
 *Alternatively, you can download the latest `.vsix` file from the [GitHub Releases](https://github.com/Chimera418/cmra/releases) and install it manually.*
 
