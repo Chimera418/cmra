@@ -4,7 +4,16 @@ All notable changes to CMRA are documented here.
 
 ---
 
-## [Unreleased] — 2026-04-12
+## [Unreleased] — 2026-04-13
+
+### 🚀 VS Code Extension Released (v1.0.2)
+
+The **CMRA Esoteric Language** extension is now officially live on the VS Code Marketplace and Open VSX Registry! 
+- Provides accurate syntax highlighting for both Fire Dragon (`.cmra`) and Shadow Dragon (`.cmrash`) dialects.
+- Seamlessly run your dragon code locally directly from the editor (requires `pip install cmra`).
+- Includes fast snippets for bootstrapping loop and conditional patterns.
+
+---
 
 ### 🆕 New Ways to Run CMRA
 

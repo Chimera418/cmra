@@ -1,29 +1,39 @@
-# CMRA Language Support
+# CMRA Esoteric Language
 
-This is the official Visual Studio Code extension for **Chimera (CMRA)**, providing syntax highlighting, useful code snippets, and commands to run CMRA programs.
+![CMRA Theme](https://img.shields.io/badge/Syntax-Dragon_Flavored-red)
+![Version](https://img.shields.io/badge/version-1.0.2-blue)
 
-## Features
+**CMRA Esoteric Language** brings syntax highlighting, useful snippets, and local run support for the `CMRA` programming language to your favorite IDEs like VS Code and Cursor.
 
-* **Syntax Highlighting** for both `.cmra` (Fire Dragon) and `.cmrash` (Shadow Dragon) files.
-* **Snippets** for quick boilerplate: type `loop`, `sniff`, `roar`, `check`, or `print`.
-* **Run Support**: Easily right-click a file or use the Command Palette (`CMRA: Run File`) to run your code within the VS Code integrated terminal.
-* **REPL Support**: Open the Chimera REPL directly via `CMRA: Start REPL`.
+## 🔥 Features
+- **Syntax Highlighting**: Beautiful and accurate tokenization for both Fire Dragon (`.cmra`) and Shadow Dragon (`.cmrash`) dialects.
+- **Run Support**: Right-click or use the Command Palette to execute your dragon code directly in the integrated terminal.
+- **Snippets**: Type `hello`, `cond`, or `loop` to instantly scaffold patterns for both dialects. 
 
-## Requirements
+## ⚡ Installation & Usage
 
-Ensure the `cmra` command is accessible globally in your terminal. You can install it via:
+### 1. The Extension
+Get the latest version straight from the VS Code Marketplace or Open VSX Registry by searching for **CMRA Esoteric Language**. 
 
-```sh
+*Alternatively, you can download the latest `.vsix` file from the [GitHub Releases](https://github.com/Chimera418/cmra/releases) and install it manually.*
+
+### 2. The Python CLI
+To use the "Run CMRA File" command within your editor, ensure you have the `cmra` CLI installed globally in your Python environment:
+```bash
 pip install cmra
 ```
 
-## Setup
+## 📖 Extension Commands
 
-This extension automatically activates for `.cmra` and `.cmrash` files.
+- `CMRA: Run File`: Executes the currently active `.cmra` or `.cmrash` file using the installed interpreter.
 
-## Documentation & Resources
+## 🔗 Documentation
 
-- 🌐 **Official Website & Playground**: [cmra-esolang.vercel.app](https://cmra-esolang.vercel.app)
-- 📖 **User Guide (Website)**: [cmra-esolang.vercel.app/guide.html](https://cmra-esolang.vercel.app/guide.html)
-- 📖 **User Guide (GitHub)**: [github.com/Chimera418/cmra/blob/main/GUIDE.md](https://github.com/Chimera418/cmra/blob/main/GUIDE.md)
-- 🔥 **GitHub Repository**: [github.com/Chimera418/cmra](https://github.com/Chimera418/cmra)
+- 🌐 **Website**: [cmra-esolang.vercel.app](https://cmra-esolang.vercel.app/index.html)
+- 🔥 **Playground**: [Try it live online](https://cmra-esolang.vercel.app/playground.html)
+- 📖 **User Guide**: [Documentation & Pitfalls Guide](https://cmra-esolang.vercel.app/guide.html) (also available on [GitHub](https://github.com/Chimera418/cmra/blob/main/GUIDE.md))
+- 🐙 **GitHub Repository**: [Chimera418/cmra](https://github.com/Chimera418/cmra)
+
+---
+
+*May your code burn bright and your loops reverse true!* 🐉🔥

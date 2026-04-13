@@ -33,6 +33,12 @@ Write and run CMRA code directly in your browser — no installation needed. Pow
 
 ## ⚡ Installation & Quick Start
 
+### CMRA Esoteric Language Extension (VS Code / Cursor)
+
+For the best developer experience, install the official IDE extension:
+- **Marketplace**: Search for **CMRA Esoteric Language** in the extensions tab. Works on both VS Code and Cursor!
+- **Manual Install**: Download the `.vsix` from [GitHub Releases](https://github.com/Chimera418/cmra/releases).
+
 ### pip install (recommended)
 
 ```powershell
