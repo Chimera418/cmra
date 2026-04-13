@@ -1,13 +1,25 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CMRA Playground — Dragon's Code Arena</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='10' y='80' font-size='80'%3E🐉%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='10' y='80' font-size='80'%3E🐉%3C/text%3E%3C/svg%3E" />
   <meta name="description" content="Interactive CMRA playground — write and run dragon code in your browser!" />
+  <style>
+    .debug-execution-line {
+        background-color: rgba(255, 107, 53, 0.3) !important;
+    }
+    .debug-glyph {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='20,10 80,50 20,90' fill='%23ff6b35'/%3E%3C/svg%3E") no-repeat center;
+        background-size: 60%;
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <h1>🐉 CMRA Playground</h1>
@@ -16,16 +28,19 @@
       <a href="index.html">← Back to Docs</a>
       <a href="https://github.com/Chimera418/cmra" target="_blank" rel="noopener">View on GitHub</a>
     </p>
-    <p class="note">💻 <strong>VS Code / Cursor User?</strong> Get the <strong>CMRA Esoteric Language</strong> extension for syntax highlighting and local run support!</p>
+    <p class="note">💻 <strong>VS Code / Cursor User?</strong> Get the <strong>CMRA Esoteric Language</strong> extension
+      for syntax highlighting and local run support!</p>
+    <p class="note">🛠️ Extension default run uses <code>python -m cmra "&lt;file&gt;"</code> (configurable via <code>cmra.executablePath</code>) and includes themed randomized diagnostics.</p>
     <p class="note">💻 Want to run programs locally? <code>pip install cmra</code> → <code>cmra yourfile.cmra</code>
-      — see the <a href="index.html#quickstart">Quick&nbsp;start</a> or <a href="https://github.com/Chimera418/cmra/blob/main/GUIDE.md" target="_blank" rel="noopener">GUIDE.md</a>.</p>
+      — see the <a href="index.html#quickstart">Quick&nbsp;start</a> or <a
+        href="https://github.com/Chimera418/cmra/blob/main/GUIDE.md" target="_blank" rel="noopener">GUIDE.md</a>.</p>
   </header>
 
-  <main>
+  <main class="playground-main">
     <section id="playground">
       <h2>🔥 Dragon's Code Arena</h2>
       <p>Toggle between Fire Dragon and Shadow Dragon interpreters. Load examples or upload your own files!</p>
-      
+
       <div class="playground-controls">
         <div class="control-row">
           <label for="interpreter-toggle">Interpreter:</label>
@@ -33,7 +48,7 @@
             <option value="fire">🐲 Fire Dragon (cmra.py)</option>
             <option value="shadow">🌑 Shadow Dragon (cmrash.py)</option>
           </select>
-          
+
           <label for="file-dropdown">Load Example:</label>
           <select id="file-dropdown">
             <option value="">-- Select a file --</option>
@@ -51,25 +66,60 @@
               <option value="projects/story_adventure.cmra">story_adventure.cmra</option>
             </optgroup>
           </select>
-          
+
           <label for="file-upload" class="file-upload-label">📁 Upload File</label>
           <input type="file" id="file-upload" accept=".cmra,.cmrash" style="display: none;" />
         </div>
-        
+
         <div class="control-row">
-          <button id="run-btn" class="action-btn run-btn">▶️ Run Code</button>
+          <label for="mode-toggle">Mode:</label>
+          <select id="mode-toggle" style="background: var(--surface-light); color: var(--text-color); border: 1px solid var(--primary-color); padding: 8px; border-radius: 4px;">
+            <option value="normal">⚡ Normal Mode</option>
+            <option value="debug">🛠️ Debug Mode</option>
+          </select>
+          <button id="run-btn" class="action-btn run-btn" disabled style="opacity: 0.6; cursor: not-allowed;">⌛ Loading Systems...</button>
           <button id="clear-output-btn" class="action-btn">🗑️ Clear Output</button>
           <button id="clear-editor-btn" class="action-btn">📝 Clear Editor</button>
         </div>
+
+        </div>
+
       </div>
-      
-      <div id="editor-container" style="height: 500px; border: 2px solid #ff6b35; margin: 20px 0;"></div>
-      
-      <div class="output-section">
-        <h3>Output</h3>
-        <pre id="output-pane">Ready to run your dragon code! 🐉</pre>
+
+      <div class="two-column-layout" id="main-layout">
+        <div class="editor-col">
+          <div id="editor-container"></div>
+
+          <div class="output-section">
+            <h3>Output</h3>
+            <pre id="output-pane">Ready to run your dragon code! 🐉</pre>
+          </div>
+        </div>
+
+        <div id="debug-sidebar" class="debug-col" style="display: none;">
+          <div class="debug-controls-panel">
+            <h3>Debugger</h3>
+            <div class="timeline-slider-container">
+              <input type="range" id="timeline-slider" min="0" max="0" value="0">
+            </div>
+            <div class="timeline-actions">
+              <button id="step-back-btn" class="action-btn">⏪ Prev</button>
+              <button id="step-fwd-btn" class="action-btn">⏩ Next</button>
+            </div>
+            <div style="text-align: center;">
+              <span id="step-indicator" class="step-badge">Step: 0/0</span>
+            </div>
+          </div>
+
+          <div id="variables-pane">
+            <h3>Live Variables</h3>
+            <div id="variables-output" class="variables-list">
+              <div class="empty-state">Waiting for trace...</div>
+            </div>
+          </div>
+        </div>
       </div>
-      
+
       <div id="loading-status" class="loading-status">Initializing Pyodide... 🔄</div>
     </section>
   </main>
@@ -79,47 +129,168 @@
     <p><a href="https://github.com/Chimera418/cmra" target="_blank" rel="noopener">GitHub: Chimera418/cmra</a></p>
   </footer>
 
-  <!-- CodeMirror Editor (lighter, no AMD conflicts) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
-  
   <!-- Pyodide -->
   <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
-  
+
+  <!-- Monaco Loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
   <script>
     let editor;
     let pyodide;
     let interpretersLoaded = false;
+    
+    // Debug execution state
+    let executionHistory = [];
+    let currentStepIndex = 0;
+    let decoratedIds = [];
 
-    // Initialize CodeMirror Editor
-    document.addEventListener('DOMContentLoaded', function() {
-      editor = CodeMirror(document.getElementById('editor-container'), {
-        value: `murmur Welcome to CMRA Fire Dragon!\nmurmur Try the expressive syntax\n\nx bind 5\nroar "Hello from the dragon's lair!"\nroar x * 2\n\nsniff x > 3 : {\n  roar "x is greater than 3"\n}`,
-        mode: 'python',
-        theme: 'monokai',
-        lineNumbers: true,
-        indentUnit: 2,
-        tabSize: 2,
-        lineWrapping: true
-      });
-      
-      // Add interpreter toggle listener to update file dropdown
+    document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('interpreter-toggle').addEventListener('change', updateFileDropdown);
       
-      // Initialize Pyodide after editor is ready
+      // Load saved mode
+      const savedMode = localStorage.getItem('cmra-playground-mode') || 'normal';
+      const modeToggle = document.getElementById('mode-toggle');
+      if (modeToggle) {
+          modeToggle.value = savedMode;
+          const isDebug = savedMode === 'debug';
+          const layout = document.getElementById('main-layout');
+          const sidebar = document.getElementById('debug-sidebar');
+          if (isDebug) {
+              sidebar.style.display = 'flex';
+              layout.classList.add('debug-active');
+          } else {
+              sidebar.style.display = 'none';
+              layout.classList.remove('debug-active');
+          }
+      }
+      
+      // Setup UI toggles
+      document.getElementById('mode-toggle').addEventListener('change', (e) => {
+          localStorage.setItem('cmra-playground-mode', e.target.value);
+          const isDebug = e.target.value === 'debug';
+          const layout = document.getElementById('main-layout');
+          const sidebar = document.getElementById('debug-sidebar');
+          
+          if (isDebug) {
+              sidebar.style.display = 'flex';
+              layout.classList.add('debug-active');
+              if (executionHistory.length > 0) applyDebugStep(currentStepIndex);
+          } else {
+              sidebar.style.display = 'none';
+              layout.classList.remove('debug-active');
+              clearEditorHighlights();
+              document.getElementById('variables-output').innerHTML = '<div class="empty-state">Debug mode disabled.</div>';
+          }
+      });
+      
+      // Setup stepping controls
+      document.getElementById('timeline-slider').addEventListener('input', (e) => {
+          currentStepIndex = parseInt(e.target.value);
+          applyDebugStep(currentStepIndex);
+      });
+      document.getElementById('step-fwd-btn').addEventListener('click', () => {
+          if (currentStepIndex < executionHistory.length - 1) {
+              currentStepIndex++;
+              document.getElementById('timeline-slider').value = currentStepIndex;
+              applyDebugStep(currentStepIndex);
+          }
+      });
+      document.getElementById('step-back-btn').addEventListener('click', () => {
+          if (currentStepIndex > 0) {
+              currentStepIndex--;
+              document.getElementById('timeline-slider').value = currentStepIndex;
+              applyDebugStep(currentStepIndex);
+          }
+      });
+
+      // Load Pyodide
       initPyodide();
+      
+      // Initialize Monaco Editor
+      require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' }});
+      require(['vs/editor/editor.main'], function() {
+        monaco.languages.register({ id: 'cmra' });
+        monaco.languages.setMonarchTokensProvider('cmra', {
+            tokenizer: {
+                root: [
+                    [/murmur.*/, 'comment'],
+                    [/;.*/, 'comment'], // cmrash comment
+                    [/\b(bind|sniff|roar|dive|soar|check|print)\b/, 'keyword'],
+                    [/"[^"]*"/, 'string'],
+                    [/\d+/, 'number'],
+                ]
+            }
+        });
+
+        monaco.languages.registerHoverProvider('cmra', {
+            provideHover: function(model, position) {
+                const word = model.getWordAtPosition(position);
+                if (!word) return;
+                
+                const msg = {
+                    'murmur': { t: 'Comment', v: 'The dragon ignores this text. Use it for notes.' },
+                    'bind': { t: 'Assignment', v: 'Binds a value to the name on the left.' },
+                    'sniff': { t: 'Conditional', v: 'Checks the condition and evaluates if true.' },
+                    'roar': { t: 'Print', v: 'Roars (prints) the result to output.' },
+                    'dive': { t: 'Direction: Forward', v: 'Sets execution to move downward.' },
+                    'soar': { t: 'Direction: Backward', v: 'Flips execution to move upward!' },
+                    'check': { t: 'Debug Condition', v: 'Verification command for Shadow Dragon.' },
+                    'print': { t: 'Output', v: 'Prints expression for Shadow Dragon.' }
+                }[word.word];
+                
+                if (msg) {
+                    return {
+                        range: new monaco.Range(position.lineNumber, word.startColumn, position.lineNumber, word.endColumn),
+                        contents: [ { value: `**${msg.t}**` }, { value: msg.v } ]
+                    };
+                }
+                
+                // Show variable state if debugging
+                const isDebug = document.getElementById('mode-toggle').value === 'debug';
+                if (isDebug && executionHistory.length > 0) {
+                     const state = executionHistory[currentStepIndex];
+                     if (state && state.variables && state.variables[word.word] !== undefined) {
+                         return { contents: [ { value: `**Var: ${word.word}**` }, { value: `Value: \`${state.variables[word.word]}\`` } ] };
+                     }
+                }
+                return null;
+            }
+        });
+
+        monaco.editor.defineTheme('dragonTheme', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [
+                { token: 'comment', foreground: '888888', fontStyle: 'italic' },
+                { token: 'keyword', foreground: 'ff6b35', fontStyle: 'bold' },
+                { token: 'string', foreground: '8ac926' },
+                { token: 'number', foreground: 'ffca3a' }
+            ],
+            colors: {
+                'editor.background': '#1a1a1a',
+                'editorLineNumber.foreground': '#555555'
+            }
+        });
+
+        editor = monaco.editor.create(document.getElementById('editor-container'), {
+            value: `murmur Welcome to CMRA Fire Dragon!\nmurmur Try the expressive syntax\n\nx bind 5\nroar "Hello from the dragon's lair!"\nroar x * 2\n\nsniff x > 3 : {\n  roar "x is greater than 3"\n}`,
+            language: 'cmra',
+            theme: 'dragonTheme',
+            automaticLayout: true,
+            fontSize: 16,
+            minimap: { enabled: false },
+            glyphMargin: true
+        });
+      });
     });
 
-    // Update file dropdown based on selected interpreter
     function updateFileDropdown() {
       const interpreter = document.getElementById('interpreter-toggle').value;
       const testCasesGroup = document.getElementById('test-cases-group');
       const projectsGroup = document.getElementById('projects-group');
-      
+
       if (interpreter === 'fire') {
-        // Fire Dragon - show CMRA test cases and projects
         testCasesGroup.innerHTML = `
           <option value="test cases cmra/test.cmra">test.cmra</option>
           <option value="test cases cmra/test_strings.cmra">test_strings.cmra</option>
@@ -128,11 +299,8 @@
           <option value="test cases cmra/test_block.cmra">test_block.cmra</option>
         `;
         projectsGroup.style.display = '';
-        
-        // Update default editor content
-        editor.setValue(`murmur Welcome to CMRA Fire Dragon!\nmurmur Try the expressive syntax\n\nx bind 5\nroar "Hello from the dragon's lair!"\nroar x * 2\n\nsniff x > 3 : {\n  roar "x is greater than 3"\n}`);
+        if(editor) editor.setValue(`murmur Welcome to CMRA Fire Dragon!\nmurmur Try the expressive syntax\n\nx bind 5\nroar "Hello from the dragon's lair!"\nroar x * 2\n\nsniff x > 3 : {\n  roar "x is greater than 3"\n}`);
       } else {
-        // Shadow Dragon - show simplified test cases only, hide projects
         testCasesGroup.innerHTML = `
           <option value="test cases cmrash/test.cmrash">test.cmrash</option>
           <option value="test cases cmrash/test_strings.cmrash">test_strings.cmrash</option>
@@ -141,147 +309,263 @@
           <option value="test cases cmrash/test_block.cmrash">test_block.cmrash</option>
         `;
         projectsGroup.style.display = 'none';
-        
-        // Update default editor content
-        editor.setValue(`; Welcome to CMRA Shadow Dragon!\n; Try the minimal syntax\n\nx = 5\nprint "Hello from the dragon's lair!"\nprint x * 2\n\ncheck x > 3 : {\n  print "x is greater than 3"\n}`);
+        if(editor) editor.setValue(`; Welcome to CMRA Shadow Dragon!\n; Try the minimal syntax\n\nx = 5\nprint "Hello from the dragon's lair!"\nprint x * 2\n\ncheck x > 3 : {\n  print "x is greater than 3"\n}`);
       }
-      
-      // Reset dropdown selection
       document.getElementById('file-dropdown').value = '';
     }
 
-    // Initialize Pyodide
     async function initPyodide() {
       const statusDiv = document.getElementById('loading-status');
       try {
         statusDiv.textContent = 'Loading Pyodide... 🔄';
+        const runBtn = document.getElementById('run-btn');
+        
         pyodide = await loadPyodide();
-        
+
         statusDiv.textContent = 'Loading interpreters... 🔄';
-        
-        // Fetch interpreter files
-        const cmraResponse = await fetch('cmra.py');
-        const cmraCode = await cmraResponse.text();
-        
-        const simplifiedResponse = await fetch('cmrash.py');
-        const simplifiedCode = await simplifiedResponse.text();
-        
-        // Write to Pyodide filesystem
-        pyodide.FS.writeFile('cmra.py', cmraCode);
-        pyodide.FS.writeFile('cmrash.py', simplifiedCode);
-        
+
+        // Load interpreters
+        const cmraResp = await fetch('cmra.py');
+        const cmrashResp = await fetch('cmrash.py');
+
+        pyodide.FS.writeFile('cmra.py', await cmraResp.text());
+        pyodide.FS.writeFile('cmrash.py', await cmrashResp.text());
+
         interpretersLoaded = true;
         statusDiv.textContent = 'Ready! 🐉';
         statusDiv.style.display = 'none';
+        
+        runBtn.textContent = '▶️ Run Code';
+        runBtn.disabled = false;
+        runBtn.style.opacity = '1';
+        runBtn.style.cursor = 'pointer';
       } catch (error) {
         statusDiv.textContent = `Error loading Pyodide: ${error.message}`;
         statusDiv.style.color = '#ff4444';
+        const runBtn = document.getElementById('run-btn');
+        runBtn.textContent = '❌ Load Failed';
       }
     }
 
-    // Run code
     async function runCode() {
-      if (!interpretersLoaded) {
-        alert('Pyodide is still loading. Please wait...');
-        return;
+      if (!interpretersLoaded || !editor) {
+        return; // Button is disabled, but safeguard anyway
       }
 
       const code = editor.getValue();
       const interpreter = document.getElementById('interpreter-toggle').value;
+      const isDebug = document.getElementById('mode-toggle').value === 'debug';
       const outputPane = document.getElementById('output-pane');
+
+      outputPane.textContent = 'Running... 🔥\n';
+      clearEditorHighlights();
       
       try {
-        outputPane.textContent = 'Running... 🔥\n';
-        
-        // Write user code to temp file
         pyodide.FS.writeFile('user_code.cmra', code);
-        
-        // Capture stdout and run the interpreter
-        const scriptFile = interpreter === 'fire' ? 'cmra' : 'cmrash';
-        
-        const runScript = `
-import sys
-from io import StringIO
 
-# Capture stdout
-old_stdout = sys.stdout
-sys.stdout = StringIO()
-
-try:
-    # Set sys.argv to include the filename
-    sys.argv = ['${scriptFile}.py', 'user_code.cmra']
-    
-    # Import and run the interpreter
-    if '${scriptFile}' == 'cmra':
-        # Reset module if already imported
-        if 'cmra' in sys.modules:
-            del sys.modules['cmra']
-        import cmra
-    else:
-        # Reset module if already imported
-        if 'cmrash' in sys.modules:
-          del sys.modules['cmrash']
-        import cmrash
-    
-    output = sys.stdout.getvalue()
-except Exception as e:
-    import traceback
-    output = f"Error: {e}\\n\\nTraceback:\\n{traceback.format_exc()}"
-finally:
-    sys.stdout = old_stdout
-
-output
-`;
-        
-        const result = await pyodide.runPythonAsync(runScript);
-        outputPane.textContent = result || '(No output)';
+        if (!isDebug) {
+          const result = await executeNormal(interpreter);
+          outputPane.textContent = result || '(No output)';
+        } else {
+          const traceDataStr = await executeDebug(interpreter);
+          try {
+              executionHistory = JSON.parse(traceDataStr);
+          } catch(e) {
+              outputPane.textContent = 'Error parsing trace: ' + traceDataStr;
+              return;
+          }
+          
+          if (!executionHistory || executionHistory.length === 0) {
+              outputPane.textContent = '(Executed with no steps)';
+              return;
+          }
+          
+          currentStepIndex = 0;
+          document.getElementById('timeline-slider').max = executionHistory.length - 1;
+          document.getElementById('timeline-slider').value = 0;
+          applyDebugStep(currentStepIndex);
+        }
       } catch (error) {
         outputPane.textContent = `Error: ${error.message}`;
         outputPane.style.color = '#ff4444';
       }
     }
 
-    // Load example file
-    async function loadFile() {
-      const dropdown = document.getElementById('file-dropdown');
-      const filePath = dropdown.value;
+    async function executeNormal(interpreter) {
+      const scriptFile = interpreter === 'fire' ? 'cmra' : 'cmrash';
+      const runScript = `
+import sys
+from io import StringIO
+old_stdout = sys.stdout
+sys.stdout = StringIO()
+try:
+    sys.argv = ['${scriptFile}.py', 'user_code.cmra']
+    if '${scriptFile}' in sys.modules: del sys.modules['${scriptFile}']
+    import ${scriptFile}
+    output = sys.stdout.getvalue()
+except Exception as e:
+    import traceback
+    output = f"Error: {e}\\n\\nTraceback:\\n{traceback.format_exc()}"
+finally:
+    sys.stdout = old_stdout
+output
+`;
+      return await pyodide.runPythonAsync(runScript);
+    }
+
+    async function executeDebug(interpreter) {
+      const scriptFile = interpreter === 'fire' ? 'cmra' : 'cmrash';
+      // Dynamically load interpreter, strip out the main execution, wrap run() in a trace tool 
+      const dynamicPatchScript = `
+import sys, json
+from io import StringIO
+sys.argv = ['${scriptFile}.py', 'user_code.cmra']
+
+with open('${scriptFile}.py', 'r') as f:
+    code = f.read()
+
+# remove main() call so we can trigger it manually
+code_lines = [l for l in code.split('\\n') if not l.startswith('main()') and not l.startswith('if __name__')]
+modified_code = "\\n".join(code_lines)
+
+module_globals = {}
+exec(modified_code, module_globals)
+
+out_buf = StringIO()
+sys.stdout = out_buf
+
+_history = []
+_old_run = module_globals.get("run")
+
+def traced_run(line, lines, line_idx):
+    if len(line) == 0: return _old_run(line, lines, line_idx)
+    
+    # Capture state BEFORE execution
+    safe_vars = {k: v for k, v in module_globals.get("VARIABLES", {}).items() if isinstance(v, (int, float, str, bool))}
+    state = {
+        "line": line_idx,
+        "variables": safe_vars,
+        "direction": module_globals.get("DIRECTION", 1),
+        "output": out_buf.getvalue()
+    }
+    _history.append(state)
+    return _old_run(line, lines, line_idx)
+
+if _old_run: module_globals["run"] = traced_run
+
+try:
+    if "main" in module_globals:
+        module_globals["main"]()
+except Exception as e:
+    _history.append({"error": str(e), "line": -1, "output": out_buf.getvalue() + f"\\nRuntime Fault: {e}"})
+finally:
+    sys.stdout = sys.__stdout__
+
+# Capture final state
+safe_vars = {k: v for k, v in module_globals.get("VARIABLES", {}).items() if isinstance(v, (int, float, str, bool))}
+_history.append({
+    "line": -1, # end bounds
+    "variables": safe_vars,
+    "direction": module_globals.get("DIRECTION", 1),
+    "output": out_buf.getvalue()
+})
+
+json.dumps(_history)
+`;
+      return await pyodide.runPythonAsync(dynamicPatchScript);
+    }
+
+    function applyDebugStep(stepIndex) {
+      if (!executionHistory || executionHistory.length === 0) return;
       
-      if (!filePath) return;
+      const state = executionHistory[stepIndex];
       
-      try {
-        const response = await fetch(filePath);
-        const content = await response.text();
-        editor.setValue(content);
-      } catch (error) {
-        alert(`Error loading file: ${error.message}`);
+      document.getElementById('output-pane').textContent = state.output || '(No output yet)';
+      document.getElementById('output-pane').style.color = state.error ? '#ff4444' : 'inherit';
+      
+      const varsContainer = document.getElementById('variables-output');
+      varsContainer.innerHTML = '';
+      const varsObj = state.variables || {};
+      const keys = Object.keys(varsObj);
+      
+      if (keys.length === 0) {
+          varsContainer.innerHTML = '<div class="empty-state">No variables bound yet.</div>';
+      } else {
+          keys.forEach(k => {
+              const varRow = document.createElement('div');
+              varRow.className = 'var-row';
+              varRow.innerHTML = `<span class="var-name">${k}</span> <span class="var-equals">=</span> <span class="var-value">${varsObj[k]}</span>`;
+              varsContainer.appendChild(varRow);
+          });
+      }
+      
+      document.getElementById('step-indicator').textContent = `Step: ${stepIndex} / ${executionHistory.length - 1} | Dir: ${state.direction > 0 ? '↓' : '↑'}`;
+      
+      clearEditorHighlights();
+      
+      if (state.error && state.line >= 0) {
+          monaco.editor.setModelMarkers(editor.getModel(), 'cmra', [{
+              startLineNumber: state.line + 1, startColumn: 1,
+              endLineNumber: state.line + 1, endColumn: 100,
+              message: state.error, severity: monaco.MarkerSeverity.Error
+          }]);
+      }
+      
+      if (state.line !== undefined && state.line >= 0 && !state.error) {
+          let lineNumber = state.line + 1; // Monaco is 1-indexed
+          decoratedIds = editor.deltaDecorations([], [
+              {
+                  range: new monaco.Range(lineNumber, 1, lineNumber, 1),
+                  options: {
+                      isWholeLine: true,
+                      className: 'debug-execution-line',
+                      glyphMarginClassName: 'debug-glyph'
+                  }
+              }
+          ]);
+          editor.revealLineInCenterIfOutsideViewport(lineNumber);
       }
     }
 
-    // Upload file
+    function clearEditorHighlights() {
+      if (editor && decoratedIds.length > 0) {
+          decoratedIds = editor.deltaDecorations(decoratedIds, []);
+      }
+      if (editor) {
+          monaco.editor.setModelMarkers(editor.getModel(), 'cmra', []);
+      }
+    }
+
+    // Example & File Upload Handling
+    async function loadFile() {
+      const dropdown = document.getElementById('file-dropdown');
+      const filePath = dropdown.value;
+      if (!filePath) return;
+      try {
+        const response = await fetch(filePath);
+        if(editor) editor.setValue(await response.text());
+      } catch (error) { alert(`Error loading file: ${error.message}`); }
+    }
+
     function handleFileUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
-      
       const reader = new FileReader();
-      reader.onload = function(e) {
-        editor.setValue(e.target.result);
-      };
+      reader.onload = function(e){ if(editor) editor.setValue(e.target.result); };
       reader.readAsText(file);
     }
 
-    // Event listeners
     document.getElementById('run-btn').addEventListener('click', runCode);
     document.getElementById('clear-output-btn').addEventListener('click', () => {
       document.getElementById('output-pane').textContent = '';
+      document.getElementById('variables-output').innerHTML = '<div class="empty-state">Waiting for trace...</div>';
+      executionHistory = [];
+      clearEditorHighlights();
     });
-    document.getElementById('clear-editor-btn').addEventListener('click', () => {
-      editor.setValue('');
-    });
+    document.getElementById('clear-editor-btn').addEventListener('click', () => { if(editor) editor.setValue(''); });
     document.getElementById('file-dropdown').addEventListener('change', loadFile);
     document.getElementById('file-upload').addEventListener('change', handleFileUpload);
-    document.querySelector('.file-upload-label').addEventListener('click', () => {
-      document.getElementById('file-upload').click();
-    });
+    document.querySelector('.file-upload-label').addEventListener('click', () => { document.getElementById('file-upload').click(); });
   </script>
 </body>
 </html>
