@@ -1,0 +1,56 @@
+{
+    "Loop Pattern (Flagged)": {
+        "prefix": "loop",
+        "body": [
+            "murmur -- setup ${1:counter}",
+            "${1:counter} bind 0",
+            "flag bind 1",
+            "",
+            "murmur -- loop boundary top",
+            "sniff ${1:counter} < ${2:10} : sniff flag == 0 : dive",
+            "",
+            "flag bind 0",
+            "sniff flag == 0 : ${0:roar ${1:counter}}",
+            "sniff flag == 0 : ${1:counter} bind ${1:counter} + 1",
+            "flag bind 1",
+            "",
+            "murmur -- loop boundary bottom",
+            "sniff ${1:counter} < ${2:10} : sniff flag == 1 : soar"
+        ],
+        "description": "A flagged loop pattern for safe iterations in Fire Dragon syntax"
+    },
+    "Conditional Block (Fire Dragon)": {
+        "prefix": "sniff",
+        "body": [
+            "sniff ${1:condition} :",
+            "{",
+            "\t$0",
+            "}"
+        ],
+        "description": "A block conditional in Fire Dragon"
+    },
+    "Print (Fire Dragon)": {
+        "prefix": "roar",
+        "body": [
+            "roar \"${1:hello}\""
+        ],
+        "description": "Print to console in Fire Dragon"
+    },
+    "Conditional Block (Shadow Dragon)": {
+        "prefix": "check",
+        "body": [
+            "check ${1:condition} :",
+            "{",
+            "\t$0",
+            "}"
+        ],
+        "description": "A block conditional in Shadow Dragon"
+    },
+    "Print (Shadow Dragon)": {
+        "prefix": "print",
+        "body": [
+            "print \"${1:hello}\""
+        ],
+        "description": "Print to console in Shadow Dragon"
+    }
+}

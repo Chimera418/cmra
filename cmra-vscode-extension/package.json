@@ -1,0 +1,95 @@
+{
+  "name": "cmra-esolang",
+  "displayName": "CMRA (Chimera) Esoteric Language Support",
+  "description": "Language support, snippets, and tools for the CMRA esoteric programming language.",
+  "version": "1.0.1",
+  "publisher": "Chimera418",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chimera418/cmra.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "icon": "logo.png",
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onCommand:cmra.runFile",
+    "onCommand:cmra.startRepl",
+    "onLanguage:cmra"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "cmra",
+        "aliases": [
+          "CMRA",
+          "cmra",
+          "Chimera"
+        ],
+        "extensions": [
+          ".cmra",
+          ".cmrash"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cmra",
+        "scopeName": "source.cmra",
+        "path": "./syntaxes/cmra.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "cmra",
+        "path": "./snippets/snippets.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "cmra.runFile",
+        "title": "CMRA: Run File",
+        "category": "CMRA"
+      },
+      {
+        "command": "cmra.startRepl",
+        "title": "CMRA: Start REPL",
+        "category": "CMRA"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "cmra.runFile",
+          "when": "resourceExtname == '.cmra' || resourceExtname == '.cmrash'",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "cmra.runFile",
+          "when": "resourceExtname == '.cmra' || resourceExtname == '.cmrash'",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.1.0",
+    "@vscode/vsce": "^2.19.0"
+  }
+}

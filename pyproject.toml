@@ -5,7 +5,7 @@ description = "CMRA — Creative Minimal Recursive Automaton language runtime"
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT" }
-authors = [{ name = "TeapotChimera418" }]
+authors = [{ name = "Chimera418" }]
 keywords = ["esolang", "esoteric", "programming", "language", "interpreter"]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -16,8 +16,8 @@ classifiers = [
 
 [project.urls]
 Homepage   = "https://cmra-esolang.vercel.app"
-Repository = "https://github.com/TeapotChimera418/cmra"
-Changelog  = "https://github.com/TeapotChimera418/cmra/blob/main/CHANGELOG.md"
+Repository = "https://github.com/Chimera418/cmra"
+Changelog  = "https://github.com/Chimera418/cmra/blob/main/CHANGELOG.md"
 
 [project.scripts]
 cmra   = "cmra.cli:main"
