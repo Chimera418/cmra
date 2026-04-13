@@ -1,6 +1,6 @@
 [project]
 name = "cmra"
-version = "0.1.0"
+version = "0.1.1"
 description = "CMRA — Creative Minimal Recursive Automaton language runtime"
 readme = "README.md"
 requires-python = ">=3.8"
