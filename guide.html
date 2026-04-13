@@ -125,6 +125,16 @@ python cmrash.py myprogram.cmrash</code></pre>
           <li><strong>Marketplace</strong>: Install directly from the <a href="https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang" target="_blank" rel="noopener">VS Code Marketplace</a> or <a href="https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang" target="_blank" rel="noopener">Open VSX Registry</a>.</li>
           <li><strong>Manual Install</strong>: Download the latest <code>.vsix</code> from the <a href="https://github.com/Chimera418/cmra/releases" target="_blank" rel="noopener">GitHub Releases</a>.</li>
         </ul>
+        <p class="note">By default, extension run uses <code>python -m cmra "&lt;file&gt;"</code> and can be overridden with <code>cmra.executablePath</code>.</p>
+        <p class="note">Diagnostics are randomized and themed for <code>.cmra</code>, and concise/technical for <code>.cmrash</code>.</p>
+        <h4>Diagnostic message examples</h4>
+        <ul>
+          <li><strong>Fire Dragon</strong>: <code>Line 4: 'x' is but a myth in this realm.</code> (Hint: bind before use)</li>
+          <li><strong>Fire Dragon</strong>: <code>Line 5: Fire Dragon rejects '=' in this chant.</code> (Hint: use <code>bind</code>)</li>
+          <li><strong>Shadow Dragon</strong>: <code>Line 4: Undefined variable 'x'.</code> (Hint: initialize with <code>=</code>)</li>
+          <li><strong>Shadow Dragon</strong>: <code>Line 5: Unexpected 'bind' in .cmrash.</code> (Hint: use <code>=</code>)</li>
+        </ul>
+        <p class="note">Full diagnostics catalog: <code>cmra-vscode-extension/ERROR_MESSAGES.md</code>.</p>
       </article>
 
       <article class="dragon-card">

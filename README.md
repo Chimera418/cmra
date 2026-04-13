@@ -38,6 +38,25 @@ Write and run CMRA code directly in your browser — no installation needed. Pow
 For the best developer experience, install the official IDE extension:
 - **Marketplace**: Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang). Works on both VS Code and Cursor!
 - **Manual Install**: Download the `.vsix` from [GitHub Releases](https://github.com/Chimera418/cmra/releases).
+- **Reliable Run command**: Extension run uses `python -m cmra "<file>"` by default (avoids global PATH issues).
+- **Config override**: Set `cmra.executablePath` if you need a custom interpreter/command.
+- **Diagnostics**: Randomized dragon-themed diagnostics for `.cmra`, concise `=`-style diagnostics for `.cmrash`.
+
+#### Diagnostic message examples (extension)
+
+**Fire Dragon (`.cmra`)**
+- `Line 4: 'x' is but a myth in this realm.`
+	`Hint: Bind it before you attempt to command it. 🐉`
+- `Line 5: Fire Dragon rejects '=' in this chant.`
+	`Hint: Use 'bind' for assignments in .cmra files.`
+
+**Shadow Dragon (`.cmrash`)**
+- `Line 4: Undefined variable 'x'.`
+	`Hint: Initialize it with '=' before using it.`
+- `Line 5: Unexpected 'bind' in .cmrash.`
+	`Hint: Use '=' for assignments.`
+
+Full catalog: [cmra-vscode-extension/ERROR_MESSAGES.md](cmra-vscode-extension/ERROR_MESSAGES.md)
 
 ### Standalone Windows Executable
 

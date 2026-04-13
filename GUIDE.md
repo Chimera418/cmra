@@ -61,6 +61,25 @@ python cmrash.py myprogram.cmrash
 For the best developer experience, install the official extension:
 - **Marketplace**: Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang).
 - **Manual Install**: Download the latest `.vsix` from the [GitHub Releases](https://github.com/Chimera418/cmra/releases).
+- **Run behavior**: The extension runs files with `python -m cmra "<file>"` by default.
+- **Custom command**: Override via `cmra.executablePath` in editor settings when needed.
+- **Diagnostics**: `.cmra` uses themed randomized messages; `.cmrash` uses concise `=`-focused messages.
+
+#### Diagnostic message examples (extension)
+
+**Fire Dragon (`.cmra`)**
+- `Line 4: 'x' is but a myth in this realm.`
+  `Hint: Bind it before you attempt to command it. 🐉`
+- `Line 5: Fire Dragon rejects '=' in this chant.`
+  `Hint: Use 'bind' for assignments in .cmra files.`
+
+**Shadow Dragon (`.cmrash`)**
+- `Line 4: Undefined variable 'x'.`
+  `Hint: Initialize it with '=' before using it.`
+- `Line 5: Unexpected 'bind' in .cmrash.`
+  `Hint: Use '=' for assignments.`
+
+Full catalog: [cmra-vscode-extension/ERROR_MESSAGES.md](cmra-vscode-extension/ERROR_MESSAGES.md)
 
 ### Option E — Standalone Executable (Windows)
 

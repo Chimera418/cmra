@@ -4,7 +4,22 @@ All notable changes to CMRA are documented here.
 
 ---
 
-## [Unreleased] — 2026-04-13
+## [Unreleased]
+
+## [1.1.0] — 2026-04-14
+
+### 🛠️ Extension Updates
+
+- **Run command reliability**: VS Code extension now defaults to `python -m cmra "<file>"` to avoid PATH-dependent `cmra` command failures on PowerShell/Windows.
+- **Config support**: Added/standardized `cmra.executablePath` with default `python -m cmra` for custom interpreter/command overrides.
+- **Diagnostics improvements**:
+	- Added randomized themed message variants for Fire Dragon (`.cmra`) diagnostics.
+	- Added clear technical variants for Shadow Dragon (`.cmrash`) diagnostics using `=` guidance.
+	- Fixed false positives so legal comparisons like `==` are not flagged as invalid assignment in `.cmra` conditions.
+- **Docs sync**:
+	- Extension README now includes inline diagnostics catalog for marketplace viewers.
+	- Added `cmra-vscode-extension/ERROR_MESSAGES.md` as canonical message catalog.
+	- Added `idk/update_checklist.md` to track required doc/release updates per change type.
 
 ### 🚀 VS Code Extension Released (v1.0.2)
 
