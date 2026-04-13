@@ -2,7 +2,7 @@
   "name": "cmra-esolang",
   "displayName": "CMRA (Chimera) Esoteric Language Support",
   "description": "Language support, snippets, and tools for the CMRA esoteric programming language.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "publisher": "Chimera418",
   "repository": {
     "type": "git",
@@ -55,7 +55,8 @@
       {
         "command": "cmra.runFile",
         "title": "CMRA: Run File",
-        "category": "CMRA"
+        "category": "CMRA",
+        "icon": "$(play)"
       },
       {
         "command": "cmra.startRepl",
@@ -78,6 +79,16 @@
           "group": "navigation"
         }
       ]
+    },
+    "configuration": {
+      "title": "CMRA",
+      "properties": {
+        "cmra.executablePath": {
+          "type": "string",
+          "default": "python -m cmra",
+          "description": "Command used to run CMRA files (for example: 'python -m cmra')."
+        }
+      }
     }
   },
   "scripts": {
