@@ -62,6 +62,11 @@ For the best developer experience, install the official extension:
 - **Marketplace**: Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang).
 - **Manual Install**: Download the latest `.vsix` from the [GitHub Releases](https://github.com/Chimera418/cmra/releases).
 
+### Option E — Standalone Executable (Windows)
+
+Don't have Python installed? No problem!
+- **Executable**: Download `cmra.exe` from the [GitHub Releases](https://github.com/Chimera418/cmra/releases), drop it in any folder, and optionally add it to your PATH to run natively.
+
 ---
 
 ## Running Programs

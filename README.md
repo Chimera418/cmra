@@ -39,6 +39,11 @@ For the best developer experience, install the official IDE extension:
 - **Marketplace**: Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang). Works on both VS Code and Cursor!
 - **Manual Install**: Download the `.vsix` from [GitHub Releases](https://github.com/Chimera418/cmra/releases).
 
+### Standalone Windows Executable
+
+Don't have Python installed? No problem! 
+Download the standalone `cmra.exe` from the latest [GitHub Releases](https://github.com/Chimera418/cmra/releases) and add it to your PATH to run CMRA programs natively.
+
 ### pip install (recommended)
 
 ```powershell
