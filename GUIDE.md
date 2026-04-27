@@ -33,7 +33,7 @@ pip install cmra
 pip install -e .
 
 # Then anywhere inside the venv:
-cmra myprogram.cmra
+python -m cmra myprogram.cmra
 ```
 
 ### Option B — PowerShell wrapper (no install needed)
@@ -45,13 +45,15 @@ cmra myprogram.cmra
 # Add the project root to PATH for this session so you can use `cmra` anywhere:
 $env:PATH = "C:\path\to\CMRA;$env:PATH"
 cmra test.cmra
+
+# If you are already inside `test cases`, call the parent wrapper:
+..\cmra.ps1 test.cmra
 ```
 
 ### Option C — Run directly with Python
 
 ```powershell
-python -m cmra.cli myprogram.cmra
-# or, if you just want the legacy single-file interpreters:
+# Legacy single-file interpreters:
 python cmra.py myprogram.cmra
 python cmrash.py myprogram.cmrash
 ```

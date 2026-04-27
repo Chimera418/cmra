@@ -28,7 +28,7 @@ The extension run command defaults to:
 ```bash
 python -m cmra "<file>"
 ```
-This avoids relying on a globally available `cmra` binary on PATH.
+This uses the package entry point directly, so make sure the package is installed in the Python environment you are using.
 
 ## 📖 Extension Commands
 
@@ -37,13 +37,13 @@ This avoids relying on a globally available `cmra` binary on PATH.
 ## ⚙️ Configuration
 
 
-- `cmra.executablePath` (default: `python -m cmra`)
+	- `cmra.executablePath` (default: `python -m cmra`)
 	- Use this when run fails in PowerShell due to PATH/venv issues.
 	- Examples:
 		- `python -m cmra`
 		- `py -m cmra`
-		- `C:\\path\\to\\venv\\Scripts\\cmra.exe`
-		- `.\\cmra.bat`
+		- `.\cmra.ps1`
+		- `.\cmra.bat`
 
 ## 🧯 Diagnostics & Error Variants
 

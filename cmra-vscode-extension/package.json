@@ -2,7 +2,7 @@
   "name": "cmra-esolang",
   "displayName": "CMRA (Chimera) Esoteric Language Support",
   "description": "Language support, snippets, and tools for the CMRA esoteric programming language.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "Chimera418",
   "repository": {
     "type": "git",

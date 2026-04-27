@@ -38,7 +38,7 @@ Write and run CMRA code directly in your browser — no installation needed. Pow
 For the best developer experience, install the official IDE extension:
 - **Marketplace**: Install directly from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Chimera418.cmra-esolang) or [Open VSX Registry](https://open-vsx.org/vscode/item?itemName=Chimera418.cmra-esolang). Works on both VS Code and Cursor!
 - **Manual Install**: Download the `.vsix` from [GitHub Releases](https://github.com/Chimera418/cmra/releases).
-- **Reliable Run command**: Extension run uses `python -m cmra "<file>"` by default (avoids global PATH issues).
+- **Reliable Run command**: Extension run uses `python -m cmra "<file>"` by default.
 - **Config override**: Set `cmra.executablePath` if you need a custom interpreter/command.
 - **Diagnostics**: Randomized dragon-themed diagnostics for `.cmra`, concise `=`-style diagnostics for `.cmrash`.
 
@@ -83,11 +83,23 @@ cmrash "test cases\test.cmrash"
 .\cmra.ps1 "test cases\test.cmra"
 ```
 
+If you are already inside a subfolder such as `test cases`, use the parent-folder wrapper instead:
+
+```powershell
+..\cmra.ps1 "test.cmra"
+```
+
+If you install CMRA into your environment and add it to PATH, you can also run:
+
+```powershell
+cmra "test cases\test.cmra"
+```
+
 ### Run with Python directly
 
 ```powershell
-python -m cmra.cli "test cases\test.cmra"
-python cmra.py "test cases cmra\test.cmra"          # legacy single-file
+# Legacy single-file interpreters:
+python cmra.py "test cases cmra\test.cmra"
 python cmrash.py "test cases cmrash\test.cmrash"
 ```
 
