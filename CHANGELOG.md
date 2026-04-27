@@ -6,6 +6,26 @@ All notable changes to CMRA are documented here.
 
 ## [Unreleased]
 
+## [1.1.1] — 2026-04-27
+
+### Runtime (PyPI)
+
+- Added package entrypoint [src/cmra/__main__.py](src/cmra/__main__.py) so `python -m cmra` works out of the box.
+- Bumped Python package version to **0.1.2**.
+
+### Windows CLI
+
+- Fixed [cmra.bat](cmra.bat) launcher flow so it resolves and runs the package CLI reliably on Windows.
+
+### Documentation
+
+- Synced command guidance across [README.md](README.md), [GUIDE.md](GUIDE.md), [guide.html](guide.html), and [index.html](index.html) to consistently prefer `python -m cmra`.
+
+### VS Code Extension
+
+- Updated extension default command to `python -m cmra`.
+- Bumped extension version to **1.1.1** for VS Code Marketplace and OpenVSX publishing.
+
 ## [1.1.0] — 2026-04-14
 
 ### 🛠️ Extension Updates
