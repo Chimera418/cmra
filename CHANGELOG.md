@@ -10,7 +10,7 @@ All notable changes to CMRA are documented here.
 
 ### 🛠️ Extension Updates
 
-- **Run command reliability**: VS Code extension now defaults to `python -m cmra "<file>"` to avoid PATH-dependent `cmra` command failures on PowerShell/Windows.
+- **Run command reliability**: VS Code extension now defaults to `python -m cmra "<file>"`.
 - **Config support**: Added/standardized `cmra.executablePath` with default `python -m cmra` for custom interpreter/command overrides.
 - **Diagnostics improvements**:
 	- Added randomized themed message variants for Fire Dragon (`.cmra`) diagnostics.
@@ -64,7 +64,7 @@ cmra.bat myprogram.cmra
 
 #### 4. Python module directly
 ```powershell
-python -m cmra.cli myprogram.cmra
+python -m cmra myprogram.cmra
 ```
 
 #### Build a standalone `.exe`

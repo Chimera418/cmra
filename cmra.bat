@@ -7,7 +7,7 @@ SET "SCRIPT_DIR=%~dp0"
 SET "VENV_PY=%SCRIPT_DIR%venv\Scripts\python.exe"
 
 IF EXIST "%VENV_PY%" (
-    "%VENV_PY%" -m cmra.cli %*
+    "%VENV_PY%" "%SCRIPT_DIR%src\cmra\cli.py" %*
 ) ELSE (
     python "%SCRIPT_DIR%src\cmra\cli.py" %*
 )

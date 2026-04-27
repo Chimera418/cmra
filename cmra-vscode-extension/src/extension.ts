@@ -25,9 +25,9 @@ function psQuote(value: string): string {
 
 function normalizeExecPath(raw: string | undefined): string {
     const value = (raw ?? 'python -m cmra').trim();
-    const legacy = value.toLowerCase();
+    const legacy = value.toLowerCase().replace(/\s+/g, ' ');
 
-    if (!value || legacy === 'cmra' || legacy === 'cmra.exe' || legacy === '.\\cmra' || legacy === './cmra') {
+    if (!value || legacy === 'cmra' || legacy === 'cmra.exe' || legacy === '.\\cmra' || legacy === './cmra' || legacy === 'python -m cmra') {
         return 'python -m cmra';
     }
 
